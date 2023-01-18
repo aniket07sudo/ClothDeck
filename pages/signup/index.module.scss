@@ -1,0 +1,38 @@
+.container {
+    margin: 0 auto;
+    align-self: center;
+    padding: 0 2rem;
+    max-width: 50rem;
+    width: 100%;
+    @media only screen and (max-width:440px) {
+        padding: 6rem 2rem;
+    }
+}
+.heading {
+    font-size: 4.2rem;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+.cta {
+    margin:1.6rem 0;
+}
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+.headNote {
+    color: #737373;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+.notice {
+    color: #737373;
+    font-size: 1.4rem;
+}
+
+.boldText {
+    color: #262D33;
+}

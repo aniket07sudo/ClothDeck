@@ -1,0 +1,19 @@
+.trayContainer {
+
+    & h2 {
+        font-size: 7.2rem;
+    }
+    & p {
+        font-size: 1.8rem;
+    }
+}
+ 
+
+.slideContainer {
+    & .slick-list {
+        & .slick-slide {
+            margin: 0 2rem;
+        }
+    }
+    
+}

@@ -1,0 +1,82 @@
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+
+    & label {
+        font-size: 1.4rem;
+    }
+    
+   
+}
+
+.eyeContainer {
+    display: flex;
+    position: relative;
+    // margin-bottom: 2rem;
+
+    & .eye {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 4.5%;
+        fill: transparent;
+        stroke: red;
+        cursor: pointer;
+    }
+
+    & .closed {
+        width: 96%;
+        transform:rotate(45deg) translateY(-50%);
+        transform-origin: center;
+        height: 2px;
+        background-color: black;
+        position: absolute;
+        top: 47%;
+    }
+    
+    
+}
+
+// .forgotpass {
+//     font-size: 1.4rem;
+//     text-align: right;
+//     margin-top: 2rem;
+
+//     & .forgotpasslink{
+//         display: inline-block;
+//     }
+// }
+
+
+.inputContainer {
+    width: 100%;
+    
+
+    & p {
+        margin: 0;
+    }
+
+    & input {
+        width: 100%;
+        padding: 15px 20px;
+        border: 1px solid #E7E7E7;
+        transition: border .4s ease;
+        font-size: 1.4rem;
+
+        &:focus , &:focus-within , &:focus-visible {
+            outline: none;
+            border:1px solid #262D33;
+        }
+    }
+
+    & p {
+        color: #ed4337;
+        font-size: 1.2rem;
+    }
+}
+
+.errorContainer {
+    position: absolute;
+}

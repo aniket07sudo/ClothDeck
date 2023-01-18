@@ -1,0 +1,180 @@
+.iconContainer {
+    max-width: 6rem;
+    max-height: 8rem;
+    & img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.wrapper {
+    padding: 13rem;
+    @media only screen and (max-width:1100px) {
+        padding: 6rem;
+    }
+   
+    @media only screen and (max-width:800px) {
+        padding: 5rem;
+    }
+    @media only screen and (max-width:420px) {
+        padding: 10rem 3rem 2rem 3rem;
+    }
+    
+}
+
+
+.subHead {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: white;
+    @media only screen and (max-width:800px) {
+        font-size: 1.4rem;
+    }
+}
+
+.mainHead {
+    position: relative;
+    z-index: 2;
+    & img {
+        font-weight: 700;
+    }
+  
+    & .mainImg {
+        width: 90%;
+        height: 15vw;
+     
+        @media only screen and (max-width:800px) {
+            width: 100%;
+        }
+        
+    }
+}
+
+.overlayImg {
+    position: absolute;
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    min-width: 60rem;
+
+    @media only screen and (max-width:1068px) {
+        right: 5%;
+        top: 5%;
+        transform: unset;
+        left: unset;
+        min-width: unset;
+        width: 60vw;
+    }
+
+    & img {
+        width: 100%;
+        object-fit: contain;
+        height: 100%;
+    }
+  
+}
+
+.bottomContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 3rem 0;
+    position: relative;
+    z-index: 4;
+    @media only screen and (max-width:1068px) {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+.description {
+    font-size: 1.6rem;
+    max-width: 40rem;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    line-height: 2.3rem;
+    @media only screen and (max-width:1068px) {
+        width: 100%;
+        font-size: 1.4rem;
+        gap: 2rem;
+    }
+}
+
+.BlurBox {
+    display: flex;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(50px);
+    max-width: 550px;
+    @media only screen and (max-width:800px) {
+        max-width: 35rem;
+
+    }
+    & .videoBox {
+        width: 100%;
+        min-width: 13.6rem;
+        min-height: 13.6rem;
+
+        & img {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+    }
+
+    & .ContentBox {
+        padding: 3rem;
+        align-self: center;
+        @media only screen and (max-width:800px) {
+            padding: 1rem;
+        }
+        & h3 {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: white;
+            @media only screen and (max-width:800px) {
+                font-size: 1.4rem;
+            }
+           
+        }
+        & p {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.4rem;
+            @media only screen and (max-width:800px) {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+.Cta {
+    font-family:'Urbanist',sans-serif;
+    background-color: white;
+    padding: 1.8rem 2.4rem;
+    border: none;
+    font-weight: 700;
+    color: #262D33;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    &:focus {
+        outline: none;
+    }
+    
+}
+
+.BrandSelector {
+    padding: 6rem 5rem;
+    display: flex;
+    gap: 5vw;
+    justify-content: space-around;
+    @media only screen and (max-width:800px) {
+        padding: 3rem;
+        gap: 5rem;
+        flex-wrap: wrap;
+    }
+}

@@ -1,0 +1,13 @@
+.tabContainer {
+    position: relative;
+}
+
+.tabs {
+    display: flex;
+
+    & button {
+        background:transparent;
+        border: none;
+        background-color: red;
+    }
+}
