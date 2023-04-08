@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { memo, useCallback, useEffect, useState } from "react";
-import { isIOS, isMobile, isMobileOnly, isDesktop, isSafari } from "react-device-detect";
+import { isIOS, isMobile, isMobileOnly, isDesktop } from "react-device-detect";
 import styled, { css, useTheme } from "styled-components"
 import CancelIcon from "../../assets/icons/Cross"
 import { isSSR } from "../../hooks/isSSR";
@@ -10,10 +10,14 @@ import DarkButton from "../Buttons/Darked";
 import Dropdown from "../Dropdown";
 import CartItem from "./CartItem";
 import { getCartData, getCartItems, updateCartItems } from "../../store/cart/actions";
+import ConfirmPopup from "../Confirmation"
+
 
 const ItemHeight = 210;
 
  function CartComponent() {
+
+    const [confirmation,setConfirmation] = useState(false);
 
     const theme = useTheme();
 
@@ -62,31 +66,13 @@ const ItemHeight = 210;
         })
     }
 
+    const ConfirmDelete = () => {
+        dispatch({type:'CONFIRM_CART_DELETE'})
+    }
+
     useEffect(() => {
         GetCartItems();
     },[])
-
-    // const UpdateItem = async (val,size,varId) => {
-    //     console.log("Creating Update Item Function");
-
-    //     let obj = {
-    //         variantId:varId,
-    //         quantity:val.quantity,
-    //         size:size.size
-    //     }
-
-    //     console.log("Item Upate Object",obj);
-
-    //     return updateCartItems(User.user_id,obj).then(res => {
-    //         // setSubTotal(res.data.total)
-    //         console.log("res",res.data);
-            
-    //         dispatch({type:'UPDATE_SUBTOTAL',subTotal:res.data.total})
-            
-    //     })
-        
-    // }
-
 
     const ItemsRender = () => {
         if(User.cart_items.length > 0) {
@@ -100,7 +86,7 @@ const ItemHeight = 210;
                 </div>
                 <Items csr={!isSSR()}>
                     {User.cart_items.map(item => (
-                        <CartItem UpdateItem={(val,size,varId) => UpdateItem(val,size,varId)} key={item._id} itemData={item} />
+                        <CartItem onClick={ConfirmDelete} UpdateItem={(val,size,varId) => UpdateItem(val,size,varId)} key={item._id} itemData={item} />
                     ))} 
                     <div className="gutter"></div>
                     </Items>
@@ -148,9 +134,11 @@ const ItemHeight = 210;
     }
 
     return (
-        <Container>
-            {ItemsRender()}
-        </Container>
+        <>
+            <Container>
+                {ItemsRender()}
+            </Container>
+        </>
     )
 }
 
@@ -262,6 +250,7 @@ const Container = styled.div`
     flex-direction:column;
     gap:3rem;
     height:100vh;
+    position:relative;
     .cta {
         padding:2rem ${Padding_Container}px;
     }

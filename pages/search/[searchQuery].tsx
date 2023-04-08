@@ -28,20 +28,19 @@ export default function SearchQuery() {
     }
 
     return(
-        // <Wrapper>
-        //     <div className="search_text_container">
-        //         <p>Search Results For: <span>{searchQuery}</span></p>
-        //     </div>
-        //     <div className="filterBox">
-        //         {(isTablet || isMobile) ? <MobFilter /> : <WebFilter />}
-        //     </div>
-        //     <div className="products">
-        //         {Data.map((item,i) => (
-        //             <ProductCard addBag={Productbag} key={item.id} item={item} />
-        //         ))}
-        //     </div>
-        // </Wrapper>
-        <></>
+        <Wrapper>
+            <div className="search_text_container">
+                <p>Search Results For: <span>{searchQuery}</span></p>
+            </div>
+            <div className="filterBox">
+                {(isTablet || isMobile) ? <MobFilter /> : <WebFilter />}
+            </div>
+            <div className="products">
+                {/* {Data.map((item,i) => (
+                    <ProductCard addBag={Productbag} key={item.id} item={item} />
+                ))} */}
+            </div>
+        </Wrapper>
     )
 }
 
@@ -92,10 +91,10 @@ const Wrapper = styled.div`
     }
 `;
 
-// SearchQuery.getLayout = function getLayout(page:any) {
-//     return (
-//       <Layout>
-//         {page}
-//       </Layout>
-//     )
-//   }
+SearchQuery.getLayout = function getLayout(page:any) {
+    return (
+      <Layout>
+        {page}
+      </Layout>
+    )
+  }

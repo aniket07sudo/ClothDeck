@@ -68,13 +68,8 @@ export default function reducer(state:any,action:any) {
                 estimatedDelivery:delivery
             }
         case "UPDATE_CART_ITEM":
-          
             console.log("Dispatched Obj",action.item);
-
             const tempItem = state.cart_items.find(item => item.variantId == action.item.variantId)
-            
-            // var findItem = state.cart_items.findIndex(item => item)
-            // var TempState = 
             tempItem.quantity = action.item.quantity;
             tempItem.size = action.item.size;
             console.log("Updated Item",tempItem);
@@ -83,6 +78,18 @@ export default function reducer(state:any,action:any) {
                 ...state,
                 tempItem
                 // cart
+            }
+        case "CONFIRM_CART_DELETE":
+            return {
+                ...state,
+                prompt:true,
+                promptType:'delete_cart_item'
+            }
+        case "PROMPT_CLOSE":
+            return {
+                ...state,
+                prompt:false,
+                promptType:null
             }
         default:
             console.log("Hello");

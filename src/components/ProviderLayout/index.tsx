@@ -14,6 +14,7 @@ import Cartcomponent from "../CartComponent";
 import { useUser, useUserDispatch } from "../../store/user/UserProvider";
 import { useSession } from "next-auth/react";
 import { getUserDataByEmail } from "../../store/user/actions";
+import ConfirmationPopUp from "../Confirmation";
 
 
 const DynamicMobNavbar = dynamic(() => import("../MobNavbar"),{
@@ -42,31 +43,6 @@ function Layout({children}) {
   const Router = useRouter();
 
   const dispatch = useUserDispatch();
-
- 
-
-
-  // const InitializeAuth = useCallback(() => {
-  //   console.log("Executing Initializing Ath",data);
-    
-  //   if(status == 'authenticated') {
-  //     getUserDataByEmail(data.user?.email,dispatch).then(res => {
-  //       console.log("Reload User Data",res);
-  //     })
-  //   } else {
-  //     dispatch({type:"LOADING_END"});
-  //   }
-  // },[])
-
-  // const InitliazeAuth = () => {
-  //   console.log("Executing Initializing Ath",data);
-    
-  //   if(status == 'authenticated') {
-  //     getUserDataByEmail(data.user?.email,dispatch).then(res => {
-  //       console.log("Reload User Data",res);
-  //     })
-  //   }
-  // }
 
   const InitializeAuth = useCallback(() => {
     if(status === 'authenticated') {
@@ -125,6 +101,7 @@ function Layout({children}) {
               </motion.div>
             <Footer />
             {Cart}
+            <ConfirmationPopUp />
         </ThemeProvider>
     </>
   )

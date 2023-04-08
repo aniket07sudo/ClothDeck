@@ -17,7 +17,7 @@ export default function RespBottomSheet({children}) {
     const dispatch = useUserDispatch();
 
     function handleClickOutside(event) {
-        if(BackdropRef.current && !BackdropRef.current.contains(event.target)) {
+        if(BackdropRef.current && !BackdropRef.current.contains(event.target) && !user.prompt) {
             if(event.button == 0) {
                 dispatch({type:'CART_CLOSE'})
             }
@@ -25,14 +25,13 @@ export default function RespBottomSheet({children}) {
     }
 
     useEffect(() => {
-     
 
         document.addEventListener('mousedown',handleClickOutside);
 
         return () => {
             document.removeEventListener('mousedown',handleClickOutside);
         }
-    },[BackdropRef.current])
+    },[BackdropRef.current,user.prompt])
 
     useEffect(() => {
         if(user.cart) {

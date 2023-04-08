@@ -7,6 +7,8 @@ import Link from 'next/link';
 import Search from "../../assets/icons/Search";
 import styles from './styles.module.scss'
 import { memo, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import SearchItem from '../WebNavbar/Item';
 
  function SearchComponent({searchOpen,setSearchOpen}) {
 
@@ -18,6 +20,11 @@ import { memo, useEffect, useRef, useState } from 'react';
     const inputRef = useRef(null);
 
     const theme = useTheme();
+
+    const [searchedTerm,setSearchTerm] = useState('');
+
+
+    const [results,setResults] = useState([]);
 
     useEffect(() => {
        
@@ -36,13 +43,52 @@ import { memo, useEffect, useRef, useState } from 'react';
         };
       }, [WrapperRef,inputRef]);
 
+      const handleSearch = (e : React.ChangeEvent<HTMLInputElement>) => {
+
+        let searchedText = e.target.value;
+        setSearchTerm(searchedText)
+
+        console.log("Coming SearchText",searchedText);
+        
+
+        if(searchedText == '') {
+            setResults([]);
+            return;
+        }
+
+
+        axios.get(`/api/v1/search/${searchedText}`).then(res => {
+            console.log("res",res.data);
+            let Array = res.data.data;
+            console.log("Array",Array);
+            
+            const newArr = Array.map(item => {
+                let newTitle = item.title.replace(new RegExp(searchedText,'gi'),match => 
+                    `<mark>${match}</mark>`
+                )
+    
+                console.log("New Title",newTitle);
+                
+    
+                return {
+                    ...item,
+                    title:newTitle
+                }
+            })
+            console.log("SSetting",newArr);
+            
+            setResults(newArr);
+
+        })
+    }
+
 
     return (
         <AnimatePresence>
             {searchOpen && <>
-                <MobSearch layout initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0,transition:{duration:.3}}}>
+                <MobSearch ref={WrapperRef} layout initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0,transition:{duration:.3}}}>
                     <Searchopen initial={{x:-100}} animate={{x:0,transition:{duration:.3}}} exit={{x:-100,transition:{duration:.3}}} layoutId="mob_search_open">
-                        <input placeholder="Search" ref={(input) => { input && input.focus()}}  />
+                        <input onChange={handleSearch} placeholder="Search" ref={(input) => { input && input.focus()}}  />
                         <motion.i style={{maxWidth:40,maxHeight:40}} layoutId="mob_search_icon" exit={{opacity:1, transition:{duration:.3}}}  >
                             <Search color={theme.text} height={30} width={30} />
                         </motion.i>
@@ -52,16 +98,23 @@ import { memo, useEffect, useRef, useState } from 'react';
                         <Cancel color={theme.text} />
                     </button>
                     <SearchSuggestions initial={{opacity:0,y:50}} animate={{opacity:1,y:0,transition:{delay:.2}}} exit={{opacity:0,y:50}}>
-                        <div className='suggestions_wrapper'>
-                            <div className="popular_searches">
+                        <SuggestionWrapper>
+                            {searchedTerm != '' && <div className='searchResultsList'>
+                                {results.map(item => (
+                                    <Link key={item._id} onClick={handleSearch} href={`/product/${item.itemId}`}>
+                                        <SearchItem item={item} />
+                                    </Link>
+                                ))}
+                            </div>}
+                            {results.length === 0 && searchedTerm === '' && <div className="popular_searches">
                                 <p>Popular Search</p>
                                 <div className='suggestions'>
                                     <Link href={'/'}>Wrogn Men Slim Fit</Link>
                                     <Link href={'/'}>Men Black Bomber</Link>
                                     <Link href={'/'}>Men Solid Cargo Joggers</Link>
                                 </div>
-                            </div>
-                        </div>
+                            </div>}
+                        </SuggestionWrapper>
                     </SearchSuggestions>
                 </MobSearch>
             </>}
@@ -153,5 +206,17 @@ const SearchSuggestions = styled(motion.div)`
                 }
             }
         }
+    }
+`;
+
+const SuggestionWrapper = styled.div`
+    padding:2rem;
+    .searchResultsList {
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    }
+    .searchResultsList a {
+        font-size:2rem;
     }
 `;

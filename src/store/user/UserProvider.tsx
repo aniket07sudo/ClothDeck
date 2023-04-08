@@ -10,7 +10,9 @@ const InitialState = {
     cart:false,
     estimatedDelivery:100,
     cartTotal:0,
-    memberSince:null
+    memberSince:null,
+    prompt:false,
+    promptType:null
 }
 
 // export const UserContext = React.createContext({

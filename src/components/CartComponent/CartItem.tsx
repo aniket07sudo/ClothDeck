@@ -2,11 +2,11 @@ import Image from "next/image";
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { updateCartItems } from "../../store/cart/actions";
 import { useUser, useUserDispatch } from "../../store/user/UserProvider";
 import Dropdown from "../Dropdown";
+import DeleteIcon from "../../assets/icons/Delete.svg"
 
-export default function CartItem({itemData,UpdateItem}) {
+export default function CartItem({itemData,UpdateItem,onClick}) {
 
     const [selectedSize,setSelectedSize] = useState(itemData.stocks.find(cartItem => cartItem.size == itemData.size));
 
@@ -98,14 +98,15 @@ export default function CartItem({itemData,UpdateItem}) {
                         </div>}
                     </div>
                 </div>
+                <div className="deleteBtn" onClick={onClick}>
+                    <DeleteIcon />
+                </div>
             </ItemContainer>
-            {/* {RenderDropdown} */}
             <Option>
                 {SizeDropDown}
                 {QuantityDropdown}
-                {/* <Dropdown label="Size" identifier="size" Options={itemData.stocks} value={selectedSize} onChange={(val) => HandleSizeChange(val,itemData.variantId)} />
-                <Dropdown label="Quantity" identifier="quantity" Options={QuantityArray} value={selectedQuantity} onChange={(val) => HandleQuantityChange(val,itemData.variantId)} /> */}
             </Option>
+
         </ItemWrapper>
     )
 }
@@ -117,9 +118,13 @@ const ItemWrapper = styled.div`
 `;
 
 const ItemContainer = styled.div`
-    display:flex;
-    gap:2rem;
-    align-items:center;
+    // display:flex;
+    // gap:2rem;
+    // align-items:center;
+    display:grid;
+    grid-template-columns:1fr 3fr 0.5fr;
+    grid-column-gap:1rem;
+
     .image_container {
     
         img {
@@ -131,6 +136,13 @@ const ItemContainer = styled.div`
         display:flex;
         flex-direction:column;
         gap:1rem;
+
+        & h4 {
+            display:-webkit-box;
+            -webkit-line-clamp:2;
+            -webkit-box-orient:vertical;
+            overflow:hidden;
+        }
         
         .content_container {
             display:flex;
@@ -178,6 +190,28 @@ const ItemContainer = styled.div`
             font-weight:600;
 
             font-size:1.8rem;
+        }
+    }
+
+    .deleteBtn {
+        align-self:flex-start;
+        border:1px solid ${({theme}) => theme.input.border};
+        padding:1rem;
+        cursor:pointer;
+        transition:background-color .3s ease;
+
+        & svg {
+            width:2rem;
+            height:2rem;
+            object-fit:contain;
+            stroke:black;
+        }
+
+        &:hover {
+            background-color:${({theme}) => theme.danger};
+            & svg {
+                stroke:white;
+            }
         }
     }
 `;

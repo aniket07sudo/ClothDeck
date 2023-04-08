@@ -49,7 +49,7 @@ const SearchProducts = async(req:NextApiRequest,res:NextApiResponse) => {
     const stats = await Variant.aggregate([
         {
             $search: {
-                index: 'searchVariants',
+                index: 'suggestions', // searchVariants
                 text: {
                   query: req.query.text,
                   path: {
@@ -59,28 +59,28 @@ const SearchProducts = async(req:NextApiRequest,res:NextApiResponse) => {
                 }
             },
         },
-        {
-            $lookup:{
-                from:'items',
-                localField:'itemId',
-                foreignField:'_id',
-                as:'productInfo'
-            }
-        },
-        {
-            $project : {
-                title:1,
-                itemId:1,
-                image: { $first : '$images' },
-                "productInfo" : {
-                    "category":1,
-                    "brand":1,
-                    "ratings_average":1,
-                    "ratings_quantity":1,
-                    "price":1,
-                }
-            }
-        },
+        // {
+        //     $lookup:{
+        //         from:'items',
+        //         localField:'itemId',
+        //         foreignField:'_id',
+        //         as:'productInfo'
+        //     }
+        // },
+        // {
+        //     $project : {
+        //         title:1,
+        //         itemId:1,
+        //         image: { $first : '$images' },
+        //         "productInfo" : {
+        //             "category":1,
+        //             "brand":1,
+        //             "ratings_average":1,
+        //             "ratings_quantity":1,
+        //             "price":1,
+        //         }
+        //     }
+        // },
         {
             $limit : 5
         }
